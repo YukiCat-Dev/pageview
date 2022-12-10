@@ -1,0 +1,27 @@
+{
+  "name": "pageview",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.20.5",
+    "babel-preset-solid": "^1.6.3",
+    "cross-env": "^7.0.3",
+    "rollup-plugin-visualizer": "^5.8.3",
+    "typescript": "^4.9.3",
+    "vite": "^3.2.5",
+    "vite-plugin-dts": "^1.7.1",
+    "vite-plugin-solid": "^2.4.0"
+  },
+  "dependencies": {
+    "@emotion/css": "^11.10.5",
+    "@floating-ui/dom": "^1.0.8",
+    "solid-js": "^1.6.3"
+  }
+}
