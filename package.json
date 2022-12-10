@@ -2,13 +2,16 @@
   "name": "pageview",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/pageview.js",
+  "module": "dist/pageview.mjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": {
+    "name": "KotoriK"
+  },
+  "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.20.5",
     "babel-preset-solid": "^1.6.3",
