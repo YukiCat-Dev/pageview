@@ -13,7 +13,7 @@ export default defineConfig({
       entry: path.resolve(__dirname, 'src/init.tsx'),
       formats: ['es', 'cjs'],
       // the proper extensions will be added
-      fileName: 'pageview'
+      fileName: 'index'
     },
     target: 'esnext',
     minify: false,
