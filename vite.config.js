@@ -22,6 +22,5 @@ export default defineConfig({
     rollupOptions: {
       external: Object.keys(pkg.dependencies).map(moduleName => new RegExp('^' + moduleName))
     },
-    emptyOutDir: false // 手动清空
   },
 });
