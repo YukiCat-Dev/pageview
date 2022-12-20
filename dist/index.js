@@ -1,6 +1,6 @@
 'use strict';
 
-Object.defineProperties(exports, { __esModule: { value: true }, [Symbol.toStringTag]: { value: 'Module' } });
+Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
 
 const web = require('solid-js/web');
 const solidJs = require('solid-js');
