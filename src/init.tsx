@@ -8,8 +8,8 @@ export const initPV = () => {
             const raw = element.innerText
             element.innerText = ''
             render(() => <PageView
-                path={ element.attributes.getNamedItem('data-path')!.value }
-                raw = { raw } />,
+                path={element.attributes.getNamedItem('data-path')!.value}
+                raw={raw} />,
                 element)
             observer.unobserve(element)
         }

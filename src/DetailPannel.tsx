@@ -1,6 +1,7 @@
 import { JSX } from "solid-js/jsx-runtime"
 import { PVDate } from "./data"
 import { popper, opacity_trans } from "./style"
+import { splitProps } from "solid-js"
 
 export interface DetailPannelProp {
     data: PVDate
@@ -10,22 +11,25 @@ export interface DetailPannelProp {
     ref?: HTMLDivElement
 }
 export function DetailPannel(props: DetailPannelProp) {
+    const [{ data }, rest] = splitProps(props, ['data'])
+    let content: JSX.Element
+    if (data.avgTOP) {
+        const avgTop = parseFloat(data.avgTOP)
+        content = <>
+            <li>
+                {`平均浏览时间:${toTime(avgTop)}`}
+            </li>
+            <li>
+                {`总浏览时间:${toTime(avgTop * parseInt(data.hit), 0)}`}
+            </li>
+        </>
+    }
     return <div class={popper + ' ' + opacity_trans}
-        data-show={props.show}
-        ref={props.ref}
-        style={props.style}
-        onTransitionEnd={props.onTransitionEnd}>
+        {...rest}>
         <li>
-            {`浏览量:${props.data.hit}`}
+            {`浏览量:${data.hit}`}
         </li>
-        {props.data.avgTOP && <>
-            <li>
-                {`平均浏览时间:${toTime(props.data.avgTOP)}`}
-            </li>
-            <li>
-                {`总浏览时间:${toTime(parseFloat(props.data.avgTOP) * parseInt(props.data.hit), 0)}`}
-            </li>
-        </>}
+        {content}
     </div>
 }
 
