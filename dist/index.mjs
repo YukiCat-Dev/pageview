@@ -1,5 +1,5 @@
-import { addEventListener, use, className, insert, memo, effect, setAttribute, style, template, delegateEvents, createComponent, Portal, render } from 'solid-js/web';
-import { createResource, createSignal, onCleanup, batch } from 'solid-js';
+import { insert, className, spread, template, delegateEvents, setAttribute, memo, createComponent, Portal, use, render } from 'solid-js/web';
+import { splitProps, createResource, createSignal, onCleanup, batch } from 'solid-js';
 import { css } from '@emotion/css';
 import { autoUpdate, computePosition, shift, flip } from '@floating-ui/dom';
 
@@ -25,40 +25,33 @@ const opacity_trans = css({
   transition: "opacity 500ms ease-in-out"
 });
 
-const _tmpl$$1 = /*#__PURE__*/template(`<div><li></li></div>`, 4),
-  _tmpl$2 = /*#__PURE__*/template(`<li></li>`, 2);
+const _tmpl$$1 = /*#__PURE__*/template(`<li>`),
+  _tmpl$2 = /*#__PURE__*/template(`<div><li>`);
 function DetailPannel(props) {
+  const [{
+    data
+  }, rest] = splitProps(props, ['data']);
+  let content;
+  if (data.avgTOP) {
+    const avgTop = parseFloat(data.avgTOP);
+    content = [(() => {
+      const _el$ = _tmpl$$1();
+      insert(_el$, () => `平均浏览时间:${toTime(avgTop)}`);
+      return _el$;
+    })(), (() => {
+      const _el$2 = _tmpl$$1();
+      insert(_el$2, () => `总浏览时间:${toTime(avgTop * parseInt(data.hit), 0)}`);
+      return _el$2;
+    })()];
+  }
   return (() => {
-    const _el$ = _tmpl$$1.cloneNode(true),
-      _el$2 = _el$.firstChild;
-    addEventListener(_el$, "transitionend", props.onTransitionEnd);
-    const _ref$ = props.ref;
-    typeof _ref$ === "function" ? use(_ref$, _el$) : props.ref = _el$;
-    className(_el$, popper + ' ' + opacity_trans);
-    insert(_el$2, () => `浏览量:${props.data.hit}`);
-    insert(_el$, (() => {
-      const _c$ = memo(() => !!props.data.avgTOP);
-      return () => _c$() && [(() => {
-        const _el$3 = _tmpl$2.cloneNode(true);
-        insert(_el$3, () => `平均浏览时间:${toTime(props.data.avgTOP)}`);
-        return _el$3;
-      })(), (() => {
-        const _el$4 = _tmpl$2.cloneNode(true);
-        insert(_el$4, () => `总浏览时间:${toTime(parseFloat(props.data.avgTOP) * parseInt(props.data.hit), 0)}`);
-        return _el$4;
-      })()];
-    })(), null);
-    effect(_p$ => {
-      const _v$ = props.show,
-        _v$2 = props.style;
-      _v$ !== _p$._v$ && setAttribute(_el$, "data-show", _p$._v$ = _v$);
-      _p$._v$2 = style(_el$, _v$2, _p$._v$2);
-      return _p$;
-    }, {
-      _v$: undefined,
-      _v$2: undefined
-    });
-    return _el$;
+    const _el$3 = _tmpl$2(),
+      _el$4 = _el$3.firstChild;
+    className(_el$3, popper + ' ' + opacity_trans);
+    spread(_el$3, rest, false, true);
+    insert(_el$4, () => `浏览量:${data.hit}`);
+    insert(_el$3, content, null);
+    return _el$3;
   })();
 }
 const toTime = (time, secFix = 2) => {
@@ -71,7 +64,7 @@ const toTime = (time, secFix = 2) => {
   return `${hour > 0 ? `${hour}小时` : ''}${min > 0 ? `${min}分` : ''}${second > 0 ? `${ms > 0 ? second.toFixed(secFix) : second}秒` : ''}`;
 };
 
-const _tmpl$ = /*#__PURE__*/template(`<span></span>`, 2);
+const _tmpl$ = /*#__PURE__*/template(`<span>`);
 const API_PREFIX = 'https://yukicat-ga-hit.vercel.app/api/ga/?page=';
 function PageView({
   path: path_raw,
@@ -111,7 +104,7 @@ function PageView({
     cleanupAutoUpdate?.();
   }); //cleaner
   return (() => {
-    const _el$ = _tmpl$.cloneNode(true);
+    const _el$ = _tmpl$();
     const _ref$ = refEle;
     typeof _ref$ === "function" ? use(_ref$, _el$) : refEle = _el$;
     _el$.$$click = () => {
