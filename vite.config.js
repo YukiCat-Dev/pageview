@@ -11,7 +11,7 @@ export default defineConfig({
   build: {
     lib: {
       entry: path.resolve(__dirname, 'src/init.tsx'),
-      formats: ['es', 'cjs'],
+      formats: ['es',],
       // the proper extensions will be added
       fileName: 'index'
     },
